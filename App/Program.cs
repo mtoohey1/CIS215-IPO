@@ -9,6 +9,7 @@ namespace App {
         static void Main(string[] args) {
             Output.Line("Enter Input: ");
             var inp = Console.ReadLine();
+			Console.SetIn ( new StreamReader ( Console.OpenStandardInput ( 2048 ) ) );
             int WordCnt, CharCnt, NumCnt, SpecCnt;
             /********************** DO NOT EDIT ABOVE THIS LINE **********************************/
 
