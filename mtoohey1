@@ -1,0 +1,53 @@
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Please provide a string input.");
+            return;
+        }
+
+        string inputString = string.Join(" ", args);
+
+        int wordCount = GetWordCount(inputString);
+        int charCount = inputString.Length;
+        int numCount = GetNumberCount(inputString);
+        int specialCharCount = GetSpecialCharCount(inputString);
+        int sentenceCount = GetSentenceCount(inputString);
+        double wordsPerSentence = (double)wordCount / sentenceCount;
+        double charsPerSentence = (double)charCount / sentenceCount;
+
+        Console.WriteLine($"Word Count: {wordCount}");
+        Console.WriteLine($"Character Count: {charCount:N0}");
+        Console.WriteLine($"Number Count: {numCount}");
+        Console.WriteLine($"Special Character Count: {specialCharCount}");
+        Console.WriteLine($"Sentence Count: {sentenceCount}");
+        Console.WriteLine($"Words per Sentence: {wordsPerSentence:F3}");
+        Console.WriteLine($"Characters per Sentence: {charsPerSentence:N4}");
+    }
+
+    static int GetWordCount(string inputString)
+    {
+        return inputString.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length;
+    }
+
+    static int GetNumberCount(string inputString)
+    {
+        return inputString.Count(char.IsDigit);
+    }
+
+    static int GetSpecialCharCount(string inputString)
+    {
+        return inputString.Count(char.IsPunctuation);
+    }
+
+    static int GetSentenceCount(string inputString)
+    {
+        return Regex.Split(inputString, @"(?<=[\.!\?])\s+").Length;
+    }
+}
